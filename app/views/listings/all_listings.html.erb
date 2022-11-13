@@ -1,0 +1,53 @@
+<h1>All Listings</h1>
+
+<hr>
+
+<table border="1">
+  <tr>
+    <th>Listing</th>
+    <th>Price</th>
+    <th>Image</th>
+    <th>Description</th>
+    <th>Seller</th>
+    <th>Posted</th>
+    <th>Status</th>
+    <th></th>
+  </tr>
+
+  <% @listings.each do |listing| %>
+  <tr>
+    <td>
+      <%= listing.name %>
+    </td>
+        <td>
+      $<%= listing.price %>
+    </td>
+    <td>
+    <div class = "banner">
+      <img src="<%= listing.image %>" class="banner-image">
+    </div>
+    </td>
+
+    <td>
+      <%= listing.description %>
+    </td>
+
+    <td>
+      <%= listing.seller.username %>
+    </td>
+
+    <td>
+      <%= listing.created_at %>
+    </td>
+        <td>
+      <%= listing.status %>
+    </td>
+    <td>
+      <a href="/listings/<%= listing.id %>">
+        Show details
+      </a>
+    </td>
+  </tr>
+  
+  <% end %>
+</table>
