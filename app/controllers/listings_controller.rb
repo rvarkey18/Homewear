@@ -20,9 +20,10 @@ class ListingsController < ApplicationController
   def comment
     new_comment = params.fetch("input_body")
     new_bid = params.fetch("input_bid")
+    listing_id = params.fetch("input_listing_id")
     a_comment = Comment.new
     a_comment.author_id = @current_user.id
-    a_comment.listing_id = @listing_id
+    a_comment.listing_id = listing_id
     a_comment.body = new_comment
     a_comment.bid = new_bid
     a_comment.save

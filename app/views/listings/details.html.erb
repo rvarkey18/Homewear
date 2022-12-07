@@ -97,7 +97,7 @@
 <% if @current_user != nil %>
 <h3>Add a new comment</h3>
 <form action="/insert_comment_record" method="post">
-  <input id="browser_listing_id" type="hidden" value="<%= @listing.id %>" name="input_listing_id">
+  <input id="browser_listing_id" type="hidden" name="input_listing_id" value="<%= @listing.id =%>">
 
   <label for="browser_comment">Comment</label>
   <textarea id="browser_comment" name="input_body" placeholder="Enter a comment..."></textarea>
