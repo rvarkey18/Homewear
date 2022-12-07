@@ -1,0 +1,111 @@
+<h1><%= @listing.name =%>'s  Details</h1>
+
+<dl>
+  <dt>Information: </dt>
+  <hr>
+      <% if @current_user != nil %>
+    <% current_user_bookmarks = Bookmark.where({ :listing_id => @listing.id, :user_id => session.fetch(:user_id) }) %>
+    <% the_bookmark=current_user_bookmarks.at(0)%>
+    <% if current_user_bookmarks.count == 0 %>
+    <form action="/insert_bookmark" method="post">
+      <input type = "hidden"name= "query_listing_id" value =<%= @listing.id %>>
+      <button> Save this Listing! </button>
+    </form>
+    <% else %>
+     <a href = "/delete_bookmark/<%=the_bookmark.id %>"> Un-bookmark </a>
+    </form>
+    <% end %>
+    <% end %>
+  <dd>
+    <div class = "banner">
+      <img src="<%= @listing.image %>" class="banner-image">
+   </div>
+  </dd>
+
+  <dt>Name</dt>
+  <dd>
+    <p><%= @listing.name %></p>
+  </dd>
+
+  <dt>Seller</dt>
+  <dd>
+    <%= @listing.seller.username %>
+  </dd>
+    <dt>Price</dt>
+  <dd>
+    <p>$<%= @listing.price %></p>
+  </dd>
+    <dt>Description</dt>
+  <dd>
+    <p><%= @listing.description %></p>
+  </dd>
+
+  <dt>Posted</dt>
+  <dd>
+    <p><%=@listing.created_at%>
+  </dd>
+</dl>
+
+
+  <% if @user_id == @listing.owner_id %>
+  <dt>Edit listing</dt>
+  <dd>
+    <form action="/update_listing/<%= @listing.id %>">
+      <label for="browser_image">New Price</label>
+      <input id="browser_image" type="text" name="input_price" placeholder="Enter a new price for the item..." value="$<%= @listing.price %>">
+
+      <label for="browser_caption">Status (Have you sold this item?)</label>
+      <input id="browser_caption" name="input_caption" placeholder="Enter a status for the item..." value="<%= @listing.status %>">
+
+      <button>Update listing</button>
+    </form>
+  </dd>
+  <% else %> 
+  <% end %>
+
+<h2>Comments</h2>
+
+<table>
+  <tr>
+    <th>Commenter</th>
+    <th>Comment</th>
+    <th>Bids</th>
+    <th>Posted</th>
+  </tr>
+
+  <% @listing.comments.each do |comment| %>
+  <tr>
+    <td>
+      <%= comment.commenter.username %>
+    </td>
+
+    <td>
+      <%= comment.body %>
+    </td>
+    
+    <td>
+      $<%= comment.bid %>
+    </td>
+
+    <td>
+      <%= comment.created_at.strftime("%a %b %d, %Y") %>
+    </td>
+  </tr>
+  
+  <% end %>
+</table>
+<% if @current_user != nil %>
+<h3>Add a new comment</h3>
+<form action="/insert_comment_record" method="post">
+  <input id="browser_listing_id" type="hidden" value="<%= @listing.id %>" name="input_listing_id">
+
+  <label for="browser_comment">Comment</label>
+  <textarea id="browser_comment" name="input_body" placeholder="Enter a comment..."></textarea>
+
+  <label for="browser_bid">Bid</label>
+  <input id="browser_bid" name="input_bid" placeholder="Enter a bid for this item..."></textarea>
+
+  <button>Bid</button>
+</form>
+<% else %>
+<% end %>

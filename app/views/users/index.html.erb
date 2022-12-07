@@ -1,0 +1,27 @@
+<h1>Welcome to Furniture4Cheap! </h1>
+<h2>List of users</h2>
+
+
+
+<table border="1">
+  <tr>
+    <th>
+      Username
+    </th>
+
+    <th></th>
+  </tr>
+
+  <% @users.each do |user| %>
+  <tr>
+    <td>
+      <%= user.username %>
+    </td>
+
+    <td>
+      <a href="/users/<%= user.username %>">Show details</a>
+    </td>
+  </tr>
+  
+  <% end %>
+</table>

@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_13_041525) do
+ActiveRecord::Schema.define(version: 2022_12_07_225353) do
+
+  create_table "bookmarks", force: :cascade do |t|
+    t.string "integer"
+    t.integer "listing_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+  end
 
   create_table "comments", force: :cascade do |t|
     t.text "body"
@@ -18,6 +26,7 @@ ActiveRecord::Schema.define(version: 2022_11_13_041525) do
     t.integer "listing_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "bid"
   end
 
   create_table "listings", force: :cascade do |t|

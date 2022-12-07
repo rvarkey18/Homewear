@@ -18,4 +18,8 @@ def seller
   return User.where({ :id => self.owner_id }).at(0)
 end
 
+def comments
+  return Comment.where({ :listing_id => self.id})
+end
+
 end

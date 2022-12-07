@@ -15,4 +15,8 @@ class User < ApplicationRecord
   validates :email, :uniqueness => { :case_sensitive => false }
   validates :email, :presence => true
   has_secure_password
+  
+  def own_listings
+    return Listing.where({ :owner_id => self.id })
+  end
 end
