@@ -1,7 +1,7 @@
 <div>
   <div>
     <h1>
-      Bookmark #<%= @the_bookmark.id %> details
+      <%= @the_bookmark.listing.name %>'s details
     </h1>
 
     <div>
@@ -20,24 +20,10 @@
 
     <dl>
       <dt>
-        User
-      </dt>
-      <dd>
-        <%= @the_bookmark.user_id %>
-      </dd>
-
-      <dt>
-        Integer
-      </dt>
-      <dd>
-        <%= @the_bookmark.integer %>
-      </dd>
-
-      <dt>
         Listing
       </dt>
       <dd>
-        <%= @the_bookmark.listing_id %>
+        <%= @the_bookmark.listing.name %>
       </dd>
 
       <dt>
@@ -68,19 +54,11 @@
 
     <form action="/modify_bookmark/<%= @the_bookmark.id %>"  method="post" >
       <div>
-        <label for="user_id_box">
-          User
-        </label>
-
-        <input type="text" id="user_id_box" name="query_user_id" value="<%= @the_bookmark.user_id %>">
+        <input type="hidden" id="user_id_box" name="query_user_id" value="<%= @the_bookmark.user_id %>">
       </div>
 
       <div>
-        <label for="integer_box">
-          Integer
-        </label>
-
-        <input type="text" id="integer_box" name="query_integer" value="<%= @the_bookmark.integer %>">
+        <input type="hidden" id="integer_box" name="query_integer" value="<%= @the_bookmark.integer %>">
       </div>
 
       <div>

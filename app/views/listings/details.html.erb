@@ -3,7 +3,7 @@
 <dl>
   <dt>Information: </dt>
   <hr>
-      <% if @current_user != nil %>
+    <% if @current_user != nil %>
     <% current_user_bookmarks = Bookmark.where({ :listing_id => @listing.id, :user_id => session.fetch(:user_id) }) %>
     <% the_bookmark=current_user_bookmarks.at(0)%>
     <% if current_user_bookmarks.count == 0 %>
