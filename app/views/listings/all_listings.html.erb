@@ -1,14 +1,37 @@
+<% if @current_user != nil %>
 <h1>Welcome to Furniture4Cheap, <%= @current_user.first_name=%>!</h1>
+<% else %>
+<h1>Welcome to Furniture4Cheap!</h1>
+<% end %>
 <h2>All Listings</h2>
 
 <hr>
+<%= search_form_for @q do |f| %>
+  <p>Narrow results:</p>
 
-<h3> Sort by: </h3>
-<table border = "1">
-<tr>
-<th> <a href = "/available"> Available </a></th>
-<th> <a href = "/sold"> Sold </a> </th></tr></table>
-<hr>
+  <div>
+    <%= f.label :name_cont, "This type of furniture" %>
+    <%= f.text_field :name_cont, :placeholder => "Enter a few characters" %>
+  </div>
+
+  <div>
+    <%= f.label :price_gteq, "Price at the low end" %>
+    <%= f.text_field :price_gteq, :placeholder => "Price greater than or equal to" %>
+  </div>
+
+  <div>
+    <%= f.label :price_lteq, "Price at the high end" %>
+    <%= f.text_field :price_lteq, :placeholder => "Price less than or equal to" %>
+  </div>
+  <div>
+    <%= f.label :status_cont, "Sold status is" %>
+    <%= f.text_field :status_cont, :placeholder => "Available" %>
+  </div>
+  <%= f.submit :class => "btn btn-primary btn-block" %>
+  
+  <a class = "btn btn-primary" href="/listings">Clear filters</a>
+<% end %>
+
 <table border="1">
   <tr>
     <th>Listing</th>
@@ -21,40 +44,40 @@
     <th></th>
   </tr>
 
-  <% @listings.each do |listing| %>
+<% @listings.each do |listing| %>
   <tr>
-    <td>
-      <%= listing.name %>
-    </td>
-        <td>
-      $<%= listing.price %>
-    </td>
-    <td>
-    <div class = "banner">
-      <img src="<%= listing.image %>" class="banner-image">
-    </div>
-    </td>
+  <td>
+    <%= listing.name %>
+  </td>
+      <td>
+    $<%= listing.price %>
+  </td>
+  <td>
+  <div class = "banner">
+   <img src="<%= listing.image %>" class="banner-image">
+ </div>
+ </td>
 
-    <td>
-      <%= listing.description %>
-    </td>
+<td>
+  <%= listing.description %>
+ </td>
 
-    <td>
-      <%= listing.seller.username %>
-    </td>
+  <td>
+     <%= listing.seller.username %>
+   </td>
 
-    <td>
-      <%= listing.created_at %>
-    </td>
-        <td>
-      <%= listing.status %>
-    </td>
-    <td>
-      <a href="/listings/<%= listing.id %>">
-        Show details
-      </a>
-    </td>
-  </tr>
+   <td>
+     <%= listing.created_at %>
+   </td>
+       <td>
+     <%= listing.status %>
+   </td>
+   <td>
+     <a class = "btn btn-info" href="/listings/<%= listing.id %>">
+       Show details
+     </a>
+   </td>
+ </tr>
   
   <% end %>
 </table>

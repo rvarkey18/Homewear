@@ -1,16 +1,17 @@
 class ListingsController < ApplicationController
   def index
-    @listings = Listing.all
+    @q = Listing.ransack(params[:q])
+    @listings = @q.result
     render({ :template => "listings/all_listings.html.erb"})
   end
-  def available
-    @listings = Listing.all.where(:status=>"Available")
-    render({ :template => "listings/all_listings.html.erb"})
-  end
-  def sold
-    @listings = Listing.all.where(:status => "Sold")
-    render({ :template => "listings/all_listings.html.erb"})
-  end 
+  # def available
+  #   @listings = Listing.all.where(:status=>"Available")
+  #   render({ :template => "listings/all_listings.html.erb"})
+  # end
+  # def sold
+  #   @listings = Listing.all.where(:status => "Sold")
+  #   render({ :template => "listings/all_listings.html.erb"})
+  # end 
   def show
     @user_id = session.fetch(:user_id)
     l_id = params.fetch("the_id")
